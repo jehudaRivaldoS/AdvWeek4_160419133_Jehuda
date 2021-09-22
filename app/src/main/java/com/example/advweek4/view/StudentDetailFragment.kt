@@ -25,8 +25,9 @@ class StudentDetailFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         val id = StudentDetailFragmentArgs.fromBundle(requireArguments()).id
         viewModel = ViewModelProvider(this).get(DetailListModel::class.java)
-        viewModel.fetch(id.toString())
-        observeViewModel()
+        //viewModel.fetch(id)
+        //observeViewModel()
+        txtIdD.setText(id)
     }
     fun observeViewModel() {
         viewModel.studentLD.observe(viewLifecycleOwner, Observer {
