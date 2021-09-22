@@ -26,8 +26,9 @@ class DetailListModel(application: Application): AndroidViewModel(application){
         val stringRequest = StringRequest(
                 Request.Method.GET, url,
                 { response ->
-                    val sType = object : TypeToken<List<Student>>() {}.type
-                    val result = Gson().fromJson<List<Student>>(response, sType)
+                    val result = Gson().fromJson<Student>(response,
+                            Student::class.java)
+                    studentLD.value=result
                     Log.d("showvoley", result.toString())
                 },
                 {
