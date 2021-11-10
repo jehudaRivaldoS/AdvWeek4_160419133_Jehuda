@@ -8,12 +8,15 @@ import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.example.advweek4.R
+import com.example.advweek4.databinding.FragmentStudentDetailBinding
 import com.example.advweek4.util.loadImage
 import com.example.advweek4.viewModel.DetailListModel
 import kotlinx.android.synthetic.main.fragment_student_detail.*
 
-class StudentDetailFragment : Fragment() {
+class StudentDetailFragment : Fragment(), ButtonUpdateClickListener {
     private lateinit var viewModel: DetailListModel
+    private lateinit var dataBinding: FragmentStudentDetailBinding
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -27,15 +30,23 @@ class StudentDetailFragment : Fragment() {
         viewModel = ViewModelProvider(this).get(DetailListModel::class.java)
         viewModel.fetch(id)
         observeViewModel()
-        //txtIdD.setText(id)
+
+
     }
     fun observeViewModel() {
-        viewModel.studentLD.observe(viewLifecycleOwner, Observer {
+        viewModel.studentLD.observe(viewLifecycleOwner, Observer{
+            dataBinding.student = it
+            dataBinding.listener = this
+        })
+        /*viewModel.studentLD.observe(viewLifecycleOwner, Observer {
             txtIdD.setText(it.id)
             txtNameCard.setText(it.name)
             txtBirthD.setText(it.bod)
             txtPhoneD.setText(it.phone)
             imageView2.loadImage(viewModel.studentLD.value?.photoUrl.toString(), progressBar3)
-        })
+        })*/
+    }
+    override fun onButtonUpdateClick(v: View) {
+        TODO("Not yet implemented")
     }
 }
